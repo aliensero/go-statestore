@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/filecoin-project/go-cbor-util"
+	cborutil "github.com/filecoin-project/go-cbor-util"
 	"github.com/ipfs/go-datastore"
 	"github.com/ipfs/go-datastore/query"
 	"go.uber.org/multierr"
@@ -54,6 +54,10 @@ func (st *StateStore) Get(i interface{}) *StoredState {
 		ds:   st.ds,
 		name: ToKey(i),
 	}
+}
+
+func (st *StateStore) Delete(i interface{}) error {
+	return st.ds.Delete(ToKey(i))
 }
 
 func (st *StateStore) Has(i interface{}) (bool, error) {
